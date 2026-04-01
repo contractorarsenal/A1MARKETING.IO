@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1 Marketing — Seattle Meta Ads Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #111010;
+  --cream: #ede8df;
+  --off: #1c1a19;
+  --mid: #2e2b29;
+  --rust: #6b5752;
+  --rust2: #8c7068;
+  --muted: rgba(237,232,223,0.45);
+  --fd: 'Bebas Neue', sans-serif;
+  --fs: 'Instrument Serif', serif;
+  --fb: 'Geist', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font-family: var(--fb); overflow-x: hidden; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 24px 52px; transition: background 0.3s, border-color 0.3s; }
+nav.scrolled { background: rgba(17,16,16,0.95); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(237,232,223,0.05); }
+.logo { font-family: var(--fd); font-size: 1.55rem; letter-spacing: 0.06em; color: var(--cream); text-decoration: none; }
+.logo sup { font-family: var(--fb); font-size: 0.48rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust2); vertical-align: super; margin-left: 5px; }
+.nav-r { display: flex; align-items: center; gap: 36px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-btn { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); background: var(--cream); padding: 10px 24px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.nav-btn:hover { background: var(--rust); color: var(--cream); }
+.ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 3px; }
+.ham span { display: block; width: 24px; height: 1px; background: var(--cream); transition: all 0.3s; }
+.ham.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity: 0; }
+.ham.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mob-nav { display: none; position: fixed; inset: 0; background: var(--ink); z-index: 190; flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 60px 40px; gap: 20px; }
+.mob-nav.open { display: flex; }
+.mob-nav a { font-family: var(--fd); font-size: 3.5rem; letter-spacing: 0.04em; color: var(--cream); text-decoration: none; transition: color 0.2s; }
+.mob-nav a:hover { color: var(--rust); }
+.mob-nav-foot { margin-top: 40px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* HERO */
+.hero { min-height: 100vh; padding: 160px 52px 100px; display: grid; grid-template-columns: 1fr 380px; gap: 0; align-items: end; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(107,87,82,0.13) 0%, transparent 70%); top: -80px; right: -120px; pointer-events: none; }
+.hero-kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust2); margin-bottom: 36px; opacity: 0; animation: up 0.9s ease 0.2s forwards; }
+.kicker-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rust); flex-shrink: 0; }
+.hero-h1 { font-family: var(--fd); font-size: clamp(5.5rem, 12vw, 11.5rem); line-height: 0.88; letter-spacing: 0.01em; color: var(--cream); opacity: 0; animation: up 1s ease 0.35s forwards; }
+.hero-h1 .stroke { -webkit-text-stroke: 1px rgba(237,232,223,0.3); color: transparent; }
+.hero-sub-wrap { margin-top: 52px; display: flex; align-items: flex-start; gap: 20px; opacity: 0; animation: up 0.9s ease 0.6s forwards; }
+.hero-sub-bar { width: 1px; height: 80px; flex-shrink: 0; background: linear-gradient(to bottom, var(--rust), transparent); margin-top: 4px; }
+.hero-sub { font-family: var(--fs); font-size: 1.15rem; line-height: 1.65; color: var(--muted); max-width: 400px; }
+.hero-sub em { font-style: italic; color: rgba(237,232,223,0.7); }
+.hero-cta-row { margin-top: 52px; display: flex; align-items: center; gap: 24px; opacity: 0; animation: up 0.9s ease 0.8s forwards; }
+.btn-main { display: inline-flex; align-items: center; gap: 10px; background: var(--rust); color: var(--cream); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 16px 32px; transition: background 0.2s, transform 0.2s; }
+.btn-main:hover { background: var(--rust2); transform: translateY(-2px); }
+.btn-plain { font-size: 0.72rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.btn-plain:hover { color: var(--cream); }
+.hero-right { align-self: flex-end; padding-bottom: 12px; border-left: 1px solid rgba(237,232,223,0.06); padding-left: 52px; opacity: 0; animation: fadein 1.2s ease 1s forwards; }
+.hero-aside-label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust2); margin-bottom: 20px; }
+.hero-aside-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.hero-aside-list li { font-family: var(--fs); font-size: 1rem; line-height: 1.4; color: rgba(237,232,223,0.5); padding-left: 16px; position: relative; }
+.hero-aside-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 1px; background: var(--rust); }
+
+/* TICKER */
+.ticker { overflow: hidden; border-top: 1px solid rgba(237,232,223,0.07); border-bottom: 1px solid rgba(237,232,223,0.07); padding: 15px 0; background: var(--off); }
+.ticker-track { display: flex; white-space: nowrap; animation: scroll 28s linear infinite; }
+.ticker-item { display: inline-flex; align-items: center; gap: 32px; padding-right: 60px; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(237,232,223,0.35); }
+.ticker-item b { color: rgba(237,232,223,0.7); font-weight: 500; }
+.ticker-sep { color: var(--rust); font-size: 0.5rem; }
+
+/* ABOUT */
+.about { padding: 130px 52px; display: grid; grid-template-columns: 260px 1fr; gap: 80px; }
+.about-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust2); margin-bottom: 24px; }
+.about-left p { font-family: var(--fs); font-size: 0.95rem; line-height: 1.75; color: var(--muted); }
+.about-h2 { font-family: var(--fd); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--cream); margin-bottom: 40px; }
+.about-h2 i { font-family: var(--fs); font-style: italic; font-size: 0.78em; color: var(--rust2); }
+.about-body { font-family: var(--fs); font-size: 1.2rem; line-height: 1.75; color: rgba(237,232,223,0.6); max-width: 600px; margin-bottom: 28px; }
+.about-body strong { color: var(--cream); font-weight: 400; }
+.about-pull { border-left: 2px solid var(--rust); padding-left: 24px; margin: 48px 0; }
+.about-pull p { font-family: var(--fs); font-style: italic; font-size: 1.35rem; line-height: 1.5; color: rgba(237,232,223,0.75); }
+
+/* BAND */
+.band { background: var(--rust); padding: 52px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.band-text { font-family: var(--fd); font-size: clamp(2rem, 4.5vw, 3.8rem); letter-spacing: 0.04em; line-height: 0.95; color: var(--cream); }
+.band-text span { opacity: 0.45; }
+.band-detail { max-width: 300px; font-family: var(--fs); font-size: 1rem; line-height: 1.65; color: rgba(237,232,223,0.7); flex-shrink: 0; }
+.band-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 10px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); border: 1px solid rgba(237,232,223,0.4); padding: 14px 28px; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
+.band-cta:hover { background: rgba(237,232,223,0.1); border-color: var(--cream); }
+
+/* SERVICES */
+.services { padding: 130px 52px; background: var(--off); }
+.services-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 72px; }
+.services-h2 { font-family: var(--fd); font-size: clamp(3rem, 6vw, 5rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--cream); }
+.services-note { font-family: var(--fs); font-size: 0.95rem; line-height: 1.65; color: var(--muted); max-width: 280px; text-align: right; }
+.svc-list { display: flex; flex-direction: column; }
+.svc-item { display: grid; grid-template-columns: 60px 1fr 1fr 140px; gap: 40px; align-items: center; padding: 36px 0; border-bottom: 1px solid rgba(237,232,223,0.07); transition: background 0.2s; }
+.svc-item:first-child { border-top: 1px solid rgba(237,232,223,0.07); }
+.svc-item:hover { background: rgba(237,232,223,0.02); }
+.svc-n { font-family: var(--fd); font-size: 1rem; letter-spacing: 0.1em; color: rgba(237,232,223,0.2); }
+.svc-name { font-family: var(--fd); font-size: clamp(1.4rem, 2.5vw, 2rem); letter-spacing: 0.04em; color: var(--cream); }
+.svc-desc { font-family: var(--fs); font-size: 0.95rem; line-height: 1.65; color: var(--muted); }
+.svc-tag { text-align: right; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust2); }
+
+/* PROCESS */
+.process { padding: 130px 52px; }
+.process-h2 { font-family: var(--fd); font-size: clamp(3rem, 6vw, 5rem); letter-spacing: 0.02em; color: var(--cream); margin-bottom: 80px; }
+.process-h2 span { font-family: var(--fs); font-style: italic; font-size: 0.7em; color: var(--rust2); }
+.steps { display: flex; flex-direction: column; }
+.step { display: grid; grid-template-columns: 40px 220px 1fr; gap: 48px; align-items: start; padding: 44px 0; border-bottom: 1px solid rgba(237,232,223,0.06); opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.step.vis { opacity: 1; transform: none; }
+.step-n { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; color: var(--rust2); padding-top: 4px; }
+.step-title { font-family: var(--fd); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--cream); }
+.step-body { font-family: var(--fs); font-size: 1rem; line-height: 1.75; color: var(--muted); }
+
+/* CTA */
+.cta { padding: 160px 52px; background: var(--mid); position: relative; overflow: hidden; }
+.cta-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(107,87,82,0.18), transparent); pointer-events: none; }
+.cta-inner { position: relative; z-index: 2; }
+.cta-pre { font-family: var(--fs); font-style: italic; font-size: 1.1rem; color: var(--muted); margin-bottom: 24px; }
+.cta-h2 { font-family: var(--fd); font-size: clamp(3.5rem, 9vw, 8rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--cream); margin-bottom: 48px; }
+.cta-h2 .out { -webkit-text-stroke: 1px rgba(237,232,223,0.3); color: transparent; }
+.cta-row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.cta-detail { font-family: var(--fs); font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
+
+/* CONTACT */
+.contact { padding: 130px 52px; background: var(--off); }
+.contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+.contact-h2 { font-family: var(--fd); font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--cream); margin-bottom: 28px; }
+.contact-body { font-family: var(--fs); font-size: 1rem; line-height: 1.75; color: var(--muted); margin-bottom: 48px; }
+.contact-info { display: flex; flex-direction: column; gap: 18px; }
+.ci-label { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust2); margin-bottom: 2px; display: block; }
+.ci-val { font-family: var(--fs); font-size: 1rem; color: rgba(237,232,223,0.65); }
+.contact-r form { display: flex; flex-direction: column; gap: 0; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-bottom: 1px; }
+.fg { display: flex; flex-direction: column; margin-bottom: 1px; }
+label { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,232,223,0.3); padding: 14px 18px 0; background: rgba(237,232,223,0.04); border: 1px solid rgba(237,232,223,0.07); border-bottom: none; }
+input, select, textarea { background: rgba(237,232,223,0.04); border: 1px solid rgba(237,232,223,0.07); border-top: none; color: var(--cream); font-family: var(--fb); font-size: 0.9rem; padding: 10px 18px 14px; outline: none; transition: border-color 0.25s, background 0.25s; appearance: none; }
+input:focus, select:focus, textarea:focus { border-color: rgba(107,87,82,0.5); background: rgba(107,87,82,0.06); }
+input::placeholder, textarea::placeholder { color: rgba(237,232,223,0.2); }
+select option { background: #1c1a19; }
+textarea { min-height: 110px; resize: vertical; }
+.fsubmit { margin-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.btn-send { background: var(--rust); color: var(--cream); border: none; font-family: var(--fb); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 36px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+.btn-send:hover { background: var(--rust2); transform: translateY(-2px); }
+.fnote { font-family: var(--fs); font-style: italic; font-size: 0.82rem; color: rgba(237,232,223,0.25); }
+.fsuccess { display: none; padding: 48px 32px; border: 1px solid rgba(107,87,82,0.25); background: rgba(107,87,82,0.07); }
+.fsuccess h3 { font-family: var(--fd); font-size: 2rem; letter-spacing: 0.08em; color: var(--cream); margin-bottom: 10px; }
+.fsuccess p { font-family: var(--fs); font-size: 0.95rem; color: var(--muted); }
+
+/* FOOTER */
+footer { background: var(--rust); padding: 44px 52px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.foot-logo { font-family: var(--fd); font-size: 1.8rem; letter-spacing: 0.06em; color: var(--cream); }
+.foot-links { display: flex; gap: 28px; list-style: none; }
+.foot-links a { font-size: 0.65rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(237,232,223,0.55); text-decoration: none; transition: color 0.2s; }
+.foot-links a:hover { color: var(--cream); }
+.foot-copy { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(237,232,223,0.35); }
+
+/* ANIMS */
+@keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.reveal.vis { opacity: 1; transform: none; }
+
+/* MOBILE */
+@media (max-width: 860px) {
+  nav { padding: 20px 24px; }
+  .nav-links, .nav-btn { display: none; }
+  .ham { display: flex; }
+  .hero { padding: 130px 24px 80px; grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .about { padding: 80px 24px; grid-template-columns: 1fr; gap: 48px; }
+  .band { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  .services { padding: 80px 24px; }
+  .services-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .services-note { text-align: left; }
+  .svc-item { grid-template-columns: 1fr; gap: 10px; padding: 28px 0; }
+  .svc-n { display: none; }
+  .svc-tag { text-align: left; }
+  .process { padding: 80px 24px; }
+  .step { grid-template-columns: 1fr; gap: 10px; }
+  .cta { padding: 100px 24px; }
+  .contact { padding: 80px 24px; }
+  .contact-wrap { grid-template-columns: 1fr; gap: 60px; }
+  .frow { grid-template-columns: 1fr; }
+  footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="logo">A1 Marketing<sup>Seattle</sup></a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Get Started</a>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <a href="#about" class="mn">About</a>
+  <a href="#services" class="mn">Services</a>
+  <a href="#process" class="mn">Process</a>
+  <a href="#contact" class="mn">Contact</a>
+  <p class="mob-nav-foot">(206) 636-8481 &nbsp;&bull;&nbsp; Greater Seattle</p>
+</div>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <div class="hero-kicker">
+      <div class="kicker-dot"></div>
+      Meta Ads for Service Businesses
+      <div class="kicker-dot"></div>
+      Greater Seattle
+    </div>
+    <h1 class="hero-h1">
+      WE GET<br>
+      YOU <span class="stroke">MORE</span><br>
+      CLIENTS
+    </h1>
+    <div class="hero-sub-wrap">
+      <div class="hero-sub-bar"></div>
+      <p class="hero-sub">
+        Real ads. Real results. Built and run by people who are <em>actually here</em> &mdash;
+        not an overseas agency that disappears after onboarding.
+      </p>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-main">Book a Demo</a>
+      <a href="#about" class="btn-plain">See how it works &rarr;</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-aside-label">What we do</p>
+    <ul class="hero-aside-list">
+      <li>Meta ad campaigns built from scratch</li>
+      <li>Content that actually fuels your ads</li>
+      <li>Full acquisition system, not just traffic</li>
+      <li>Aggressive optimization every week</li>
+      <li>King, Snohomish &amp; Skagit counties</li>
+    </ul>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><b>Meta Ads</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Lead Generation <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>Seattle Based</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Content Strategy <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>No Outsourcing</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Service Businesses <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>Real Operators</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Booked Appointments <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>Meta Ads</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Lead Generation <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>Seattle Based</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Content Strategy <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>No Outsourcing</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Service Businesses <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item"><b>Real Operators</b> <span class="ticker-sep">&#9632;</span></span>
+    <span class="ticker-item">Booked Appointments <span class="ticker-sep">&#9632;</span></span>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-left reveal">
+    <p class="about-label">Why A1</p>
+    <p>We work with service businesses across King, Snohomish, and Skagit counties. Contractors, roofers, HVAC, landscapers, tradespeople. We built this specifically for you.</p>
+  </div>
+  <div class="about-right reveal">
+    <h2 class="about-h2">NOT YOUR AVERAGE<br><i>agency.</i></h2>
+    <p class="about-body">
+      Most agencies are halfway around the world. You get a slick sales call, 
+      then a junior coordinator you've never met runs your ads off a template.
+      <strong>That's not this.</strong>
+    </p>
+    <p class="about-body">
+      We're local. We run Meta ads specifically engineered for service businesses &mdash;
+      not a generic campaign copy-pasted from another niche. We build the whole system:
+      the ads, the content behind them, the funnel, the follow-up. Then we optimize it
+      aggressively until it scales.
+    </p>
+    <div class="about-pull">
+      <p>"One thing: getting you more clients, faster than anyone else."</p>
+    </div>
+    <p class="about-body">
+      No guessing. No disappearing. You know what's running, why, and what it's producing &mdash; every week.
+    </p>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-text">MORE CLIENTS.<br><span>FASTER.</span></div>
+  <p class="band-detail">The full acquisition system. Meta ads, content strategy, funnel, optimization. All built and managed in-house. No middlemen.</p>
+  <a href="#contact" class="band-cta">Let's talk &rarr;</a>
+</div>
+
+<section class="services" id="services">
+  <div class="services-top reveal">
+    <h2 class="services-h2">WHAT WE<br>ACTUALLY DO</h2>
+    <p class="services-note">Content and ads running together as one system. Not separate. Not siloed.</p>
+  </div>
+  <div class="svc-list">
+    <div class="svc-item reveal">
+      <div class="svc-n">01</div>
+      <div class="svc-name">META AD CAMPAIGNS</div>
+      <div class="svc-desc">Built from scratch for service businesses. We research your market, write the copy, build the creative, and run campaigns that generate leads &mdash; not just impressions.</div>
+      <div class="svc-tag">Paid Social</div>
+    </div>
+    <div class="svc-item reveal">
+      <div class="svc-n">02</div>
+      <div class="svc-name">CONTENT STRATEGY</div>
+      <div class="svc-desc">The fuel that makes your ads work. We create the assets, messaging, and content that get your campaigns to a level most agencies never reach.</div>
+      <div class="svc-tag">Creative</div>
+    </div>
+    <div class="svc-item reveal">
+      <div class="svc-n">03</div>
+      <div class="svc-name">LEAD ACQUISITION</div>
+      <div class="svc-desc">From first impression to a booked appointment. We build and own the full funnel &mdash; not just the top of it.</div>
+      <div class="svc-tag">Growth</div>
+    </div>
+    <div class="svc-item reveal">
+      <div class="svc-n">04</div>
+      <div class="svc-name">AGGRESSIVE OPTIMIZATION</div>
+      <div class="svc-desc">We're in the account every week. Cutting what doesn't work. Scaling what does. Fast data, fast decisions.</div>
+      <div class="svc-tag">Ongoing</div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <h2 class="process-h2 reveal">HOW IT <span>works</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-title">STRATEGY CALL</div>
+      <div class="step-body">No pitch decks. We get on a call, learn your business, and figure out what's holding you back. If we think we can help, we'll tell you exactly what we'd build.</div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-title">BUILD THE SYSTEM</div>
+      <div class="step-body">Ad accounts, targeting, creative assets, landing pages, tracking. We build the full acquisition system, not just one piece of it.</div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-title">LAUNCH AND TEST</div>
+      <div class="step-body">We go live fast and collect data fast. No waiting six months to find out what's working. We know quickly, and we move quickly.</div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-title">SCALE WHAT WORKS</div>
+      <div class="step-body">Once we find what converts, we pour into it. Cut the rest. That's the whole game &mdash; and we're good at it.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <p class="cta-pre reveal">Service businesses in greater Seattle &mdash;</p>
+    <h2 class="cta-h2 reveal">READY TO<br><span class="out">GROW</span>?</h2>
+    <div class="cta-row reveal">
+      <a href="#contact" class="btn-main">Book Your Demo</a>
+      <p class="cta-detail">King, Snohomish &amp; Skagit counties.<br>We respond within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-l reveal">
+      <h2 class="contact-h2">LET'S<br>TALK.</h2>
+      <p class="contact-body">Tell us where you're at. We'll show you what we'd do and what kind of numbers to expect. No pitch. No pressure.</p>
+      <div class="contact-info">
+        <div class="ci">
+          <span class="ci-label">Phone</span>
+          <span class="ci-val">(206) 636-8481</span>
+        </div>
+        <div class="ci">
+          <span class="ci-label">Email</span>
+          <span class="ci-val">always1stmarketing@gmail.com</span>
+        </div>
+        <div class="ci">
+          <span class="ci-label">Service Area</span>
+          <span class="ci-val">King, Snohomish &amp; Skagit Counties</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-r reveal">
+      <form id="cForm">
+        <div class="frow">
+          <div class="fg">
+            <label>First Name</label>
+            <input type="text" name="firstName" placeholder="First" required>
+          </div>
+          <div class="fg">
+            <label>Last Name</label>
+            <input type="text" name="lastName" placeholder="Last" required>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Business Name</label>
+          <input type="text" name="business" placeholder="Your company" required>
+        </div>
+        <div class="frow">
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@company.com" required>
+          </div>
+          <div class="fg">
+            <label>Phone</label>
+            <input type="tel" name="phone" placeholder="(206) 000-0000">
+          </div>
+        </div>
+        <div class="fg">
+          <label>Industry</label>
+          <select name="service">
+            <option value="">What type of business?</option>
+            <option>Roofing</option>
+            <option>HVAC</option>
+            <option>Plumbing</option>
+            <option>Landscaping</option>
+            <option>Painting</option>
+            <option>Construction</option>
+            <option>Electrical</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>What's the main thing you're trying to fix?</label>
+          <textarea name="message" placeholder="More leads, more bookings, better clients..."></textarea>
+        </div>
+        <div class="fsubmit">
+          <button type="submit" class="btn-send">Send Request &rarr;</button>
+          <p class="fnote">We'll be back to you within 24 hours.</p>
+        </div>
+      </form>
+      <div class="fsuccess" id="fSuccess">
+        <h3>GOT IT.</h3>
+        <p>We'll reach out within 24 hours to schedule your demo call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">A1 Marketing</div>
+  <ul class="foot-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="foot-copy">&copy; 2026 A1 Marketing &mdash; Seattle, WA</span>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mobNav');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mob.classList.toggle('open'); });
+document.querySelectorAll('.mn').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mob.classList.remove('open'); }));
+
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+document.querySelectorAll('.step').forEach((el, i) => { el.style.transitionDelay = (i * 0.1) + 's'; ro.observe(el); });
+
+const form = document.getElementById('cForm');
+const succ = document.getElementById('fSuccess');
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = form.querySelector('.btn-send');
+  btn.textContent = 'Sending...'; btn.disabled = true;
+  const fd = new FormData(form);
+  try {
+    const r = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_key: 'YOUR_WEB3FORMS_KEY', subject: 'New Demo Request - A1 Marketing', from_name: 'A1 Marketing Site', ...Object.fromEntries(fd) })
+    });
+    if (r.ok) { form.style.display = 'none'; succ.style.display = 'block'; }
+    else { btn.textContent = 'Try Again'; btn.disabled = false; }
+  } catch { btn.textContent = 'Try Again'; btn.disabled = false; }
+});
+</script>
+</body>
+</html>
